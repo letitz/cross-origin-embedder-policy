@@ -378,22 +378,22 @@ To <dfn abstract-op>initialize a global object's embedder policy from a response
 
 3.  If |response|'s [=response/url=]'s [=url/scheme=] is a [=local scheme=]:
 
-    1.  For each of the items in |global|'s [=WorkerGlobalScope/owner set=]:
+    1.  For each |owner| in |global|'s [=WorkerGlobalScope/owner set=]:
 
-            1.  If the item's [=/embedder policy=]'s [=embedder policy/value] is "`require-corp`",
-                then set |policy|'s [=embedder policy/value] to "`require-corp`".
+            1.  If |owner|'s [=/embedder policy=]'s [=embedder policy/value=] is "`require-corp`",
+                then set |policy|'s [=embedder policy/value=] to "`require-corp`".
 
-            2.  If |policy|'s [=embedder policy/reporting endpoint] is `null` and the item's
-                [=embedder policy/reporting endpoint=] is non-null, then |policy|'s
-                [=embedder policy/reporting endpoint=] to the item's
+            2.  If |policy|'s [=embedder policy/reporting endpoint=] is `null` and |owner|'s
+                [=embedder policy/reporting endpoint=] is non-null, then set |policy|'s
+                [=embedder policy/reporting endpoint=] to |owner|'s
                 [=embedder policy/reporting endpoint=].
 
-            3.  If the item's [=/embedder policy=]'s [=embedder policy/report only value] is
-                "`require-corp`", then set |policy|'s [=embedder policy/value] to "`require-corp`".
+            3.  If |owner|'s [=/embedder policy=]'s [=embedder policy/report only value=] is
+                "`require-corp`", then set |policy|'s [=embedder policy/value=] to "`require-corp`".
 
-            4.  If |policy|'s [=embedder policy/report only reporting endpoint] is `null` and the
-                item's [=embedder policy/report only reporting endpoint=] is non-null, then
-                |policy|'s [=embedder policy/report only reporting endpoint=] to the item's
+            4.  If |policy|'s [=embedder policy/report only reporting endpoint=] is `null` and
+                |owner|'s [=embedder policy/report only reporting endpoint=] is non-null, then set
+                |policy|'s [=embedder policy/report only reporting endpoint=] to |owner|'s
                 [=embedder policy/report only reporting endpoint=].
 4.  Otherwise:
 

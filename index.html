@@ -1198,7 +1198,7 @@ Possible extra rowspan handling
 	ul.index ul,
 	ul.index dl { font-size: smaller; }
 	@media not print {
-		ul.index li span {
+		ul.index li span:not(.dfn-paneled) {
 			white-space: nowrap;
 			color: transparent; }
 		ul.index li a:hover + span,
@@ -1321,8 +1321,9 @@ Possible extra rowspan handling
 		}
 	}
 </style>
-  <meta content="Bikeshed version 5f7b0e20, updated Tue Aug 18 15:46:28 2020 -0700" name="generator">
+  <meta content="Bikeshed version 89ebb6ab, updated Fri Oct 9 15:32:07 2020 -0700" name="generator">
   <link href="https://html.spec.whatwg.org/multipage/origin.html#coep" rel="canonical">
+  <meta content="30ae37797199c6fd4f85013e67a6de124182b888" name="document-revision">
 <style>/* style-autolinks */
 
 .css.css, .property.property, .descriptor.descriptor {
@@ -1546,7 +1547,7 @@ figcaption:not(.no-marker)::before {
 .dfn-panel:not(.on) { display: none; }
 .dfn-panel * { margin: 0; padding: 0; text-indent: 0; }
 .dfn-panel > b { display: block; }
-.dfn-panel a { color: black; }
+.dfn-panel a { color: var(--dfnpanel-text); }
 .dfn-panel a:not(:hover) { text-decoration: none !important; border-bottom: none !important; }
 .dfn-panel > b + b { margin-top: 0.25em; }
 .dfn-panel ul { padding: 0; }
@@ -1760,7 +1761,7 @@ dfn > a.self-link::before      { content: "#"; }
   <div class="head">
    <p data-fill-with="logo"></p>
    <h1 class="p-name no-ref" id="title">Cross-Origin Embedder Policy</h1>
-   <h2 class="no-num no-toc no-ref heading settled" id="subtitle"><span class="content">A Collection of Interesting Ideas, <time class="dt-updated" datetime="2020-09-29">29 September 2020</time></span></h2>
+   <h2 class="no-num no-toc no-ref heading settled" id="subtitle"><span class="content">A Collection of Interesting Ideas, <time class="dt-updated" datetime="2020-12-11">11 December 2020</time></span></h2>
    <div data-fill-with="spec-metadata">
     <dl>
      <dt>Issue Tracking:
@@ -2093,19 +2094,18 @@ embedder’s policy</a> algorithm returns "<code>Blocked</code>" when executed u
       <p>If <var>response</var>’s <a data-link-type="dfn" href="https://fetch.spec.whatwg.org/#concept-response-url" id="ref-for-concept-response-url">url</a>'s <a data-link-type="dfn" href="https://url.spec.whatwg.org/#concept-url-scheme" id="ref-for-concept-url-scheme">scheme</a> is a <a data-link-type="dfn" href="https://fetch.spec.whatwg.org/#local-scheme" id="ref-for-local-scheme">local scheme</a>:</p>
       <ol>
        <li data-md>
-        <p>For each of the items in <var>global</var>’s <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/workers.html#concept-WorkerGlobalScope-owner-set" id="ref-for-concept-WorkerGlobalScope-owner-set">owner set</a>:</p>
+        <p>For each <var>owner</var> in <var>global</var>’s <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/workers.html#concept-WorkerGlobalScope-owner-set" id="ref-for-concept-WorkerGlobalScope-owner-set">owner set</a>:</p>
         <ol>
          <li data-md>
-          <p>If the item’s <a data-link-type="dfn" href="#embedder-policy" id="ref-for-embedder-policy⑤">embedder policy</a>'s [=embedder policy/value] is "<code>require-corp</code>",
-then set <var>policy</var>’s [=embedder policy/value] to "<code>require-corp</code>".</p>
+          <p>If <var>owner</var>’s <a data-link-type="dfn" href="#embedder-policy" id="ref-for-embedder-policy⑤">embedder policy</a>'s <a data-link-type="dfn" href="#embedder-policy-value" id="ref-for-embedder-policy-value①">value</a> is "<code>require-corp</code>",
+then set <var>policy</var>’s <a data-link-type="dfn" href="#embedder-policy-value" id="ref-for-embedder-policy-value②">value</a> to "<code>require-corp</code>".</p>
          <li data-md>
-          <p>If <var>policy</var>’s [=embedder policy/reporting endpoint] is <code>null</code> and the item’s <a data-link-type="dfn" href="#embedder-policy-reporting-endpoint" id="ref-for-embedder-policy-reporting-endpoint①">reporting endpoint</a> is non-null, then <var>policy</var>’s <a data-link-type="dfn" href="#embedder-policy-reporting-endpoint" id="ref-for-embedder-policy-reporting-endpoint②">reporting endpoint</a> to the item’s <a data-link-type="dfn" href="#embedder-policy-reporting-endpoint" id="ref-for-embedder-policy-reporting-endpoint③">reporting endpoint</a>.</p>
+          <p>If <var>policy</var>’s <a data-link-type="dfn" href="#embedder-policy-reporting-endpoint" id="ref-for-embedder-policy-reporting-endpoint①">reporting endpoint</a> is <code>null</code> and <var>owner</var>’s <a data-link-type="dfn" href="#embedder-policy-reporting-endpoint" id="ref-for-embedder-policy-reporting-endpoint②">reporting endpoint</a> is non-null, then set <var>policy</var>’s <a data-link-type="dfn" href="#embedder-policy-reporting-endpoint" id="ref-for-embedder-policy-reporting-endpoint③">reporting endpoint</a> to <var>owner</var>’s <a data-link-type="dfn" href="#embedder-policy-reporting-endpoint" id="ref-for-embedder-policy-reporting-endpoint④">reporting endpoint</a>.</p>
          <li data-md>
-          <p>If the item’s <a data-link-type="dfn" href="#embedder-policy" id="ref-for-embedder-policy⑥">embedder policy</a>'s [=embedder policy/report only value] is
-"<code>require-corp</code>", then set <var>policy</var>’s [=embedder policy/value] to "<code>require-corp</code>".</p>
+          <p>If <var>owner</var>’s <a data-link-type="dfn" href="#embedder-policy" id="ref-for-embedder-policy⑥">embedder policy</a>'s <a data-link-type="dfn" href="#embedder-policy-report-only-value" id="ref-for-embedder-policy-report-only-value①">report only value</a> is
+"<code>require-corp</code>", then set <var>policy</var>’s <a data-link-type="dfn" href="#embedder-policy-value" id="ref-for-embedder-policy-value③">value</a> to "<code>require-corp</code>".</p>
          <li data-md>
-          <p>If <var>policy</var>’s [=embedder policy/report only reporting endpoint] is <code>null</code> and the
-item’s <a data-link-type="dfn" href="#embedder-policy-report-only-reporting-endpoint" id="ref-for-embedder-policy-report-only-reporting-endpoint①">report only reporting endpoint</a> is non-null, then <var>policy</var>’s <a data-link-type="dfn" href="#embedder-policy-report-only-reporting-endpoint" id="ref-for-embedder-policy-report-only-reporting-endpoint②">report only reporting endpoint</a> to the item’s <a data-link-type="dfn" href="#embedder-policy-report-only-reporting-endpoint" id="ref-for-embedder-policy-report-only-reporting-endpoint③">report only reporting endpoint</a>.</p>
+          <p>If <var>policy</var>’s <a data-link-type="dfn" href="#embedder-policy-report-only-reporting-endpoint" id="ref-for-embedder-policy-report-only-reporting-endpoint①">report only reporting endpoint</a> is <code>null</code> and <var>owner</var>’s <a data-link-type="dfn" href="#embedder-policy-report-only-reporting-endpoint" id="ref-for-embedder-policy-report-only-reporting-endpoint②">report only reporting endpoint</a> is non-null, then set <var>policy</var>’s <a data-link-type="dfn" href="#embedder-policy-report-only-reporting-endpoint" id="ref-for-embedder-policy-report-only-reporting-endpoint③">report only reporting endpoint</a> to <var>owner</var>’s <a data-link-type="dfn" href="#embedder-policy-report-only-reporting-endpoint" id="ref-for-embedder-policy-report-only-reporting-endpoint④">report only reporting endpoint</a>.</p>
         </ol>
       </ol>
      <li data-md>
@@ -2151,12 +2151,12 @@ return "<code>allowed</code>".</p>
       <li data-md>
        <p>Let <var>owner policy</var> be <var>owner</var>’s <a data-link-type="dfn" href="#environment-settings-object-embedder-policy" id="ref-for-environment-settings-object-embedder-policy">embedder policy</a>.</p>
       <li data-md>
-       <p>If <var>owner policy</var>’s <a data-link-type="dfn" href="#embedder-policy-report-only-value" id="ref-for-embedder-policy-report-only-value①">report only value</a> is "<code>require-corp</code>" and <var>owner policy</var>’s <a data-link-type="dfn" href="#embedder-policy-report-only-reporting-endpoint" id="ref-for-embedder-policy-report-only-reporting-endpoint④">report only reporting endpoint</a> is not null and <var>response policy</var>’s <a data-link-type="dfn" href="#embedder-policy-value" id="ref-for-embedder-policy-value①">value</a> is "<code>unsafe-none</code>", then <a data-link-type="abstract-op" href="#abstract-opdef-queue-coep-worker-violation" id="ref-for-abstract-opdef-queue-coep-worker-violation">queue a Cross-Origin Embedder Policy vioalation on worker initialization</a> with <var>request</var>, <var>owner policy</var>’s <a data-link-type="dfn" href="#embedder-policy-report-only-reporting-endpoint" id="ref-for-embedder-policy-report-only-reporting-endpoint⑤">report only reporting endpoint</a> and <var>owner</var>.</p>
+       <p>If <var>owner policy</var>’s <a data-link-type="dfn" href="#embedder-policy-report-only-value" id="ref-for-embedder-policy-report-only-value②">report only value</a> is "<code>require-corp</code>" and <var>owner policy</var>’s <a data-link-type="dfn" href="#embedder-policy-report-only-reporting-endpoint" id="ref-for-embedder-policy-report-only-reporting-endpoint⑤">report only reporting endpoint</a> is not null and <var>response policy</var>’s <a data-link-type="dfn" href="#embedder-policy-value" id="ref-for-embedder-policy-value④">value</a> is "<code>unsafe-none</code>", then <a data-link-type="abstract-op" href="#abstract-opdef-queue-coep-worker-violation" id="ref-for-abstract-opdef-queue-coep-worker-violation">queue a Cross-Origin Embedder Policy vioalation on worker initialization</a> with <var>request</var>, <var>owner policy</var>’s <a data-link-type="dfn" href="#embedder-policy-report-only-reporting-endpoint" id="ref-for-embedder-policy-report-only-reporting-endpoint⑥">report only reporting endpoint</a> and <var>owner</var>.</p>
       <li data-md>
-       <p>If <var>owner policy</var>’s <a data-link-type="dfn" href="#embedder-policy-value" id="ref-for-embedder-policy-value②">value</a> is "<code>require-corp</code>" and <var>child policy</var>’s <a data-link-type="dfn" href="#embedder-policy-value" id="ref-for-embedder-policy-value③">value</a> is "<code>unsafe-none</code>":</p>
+       <p>If <var>owner policy</var>’s <a data-link-type="dfn" href="#embedder-policy-value" id="ref-for-embedder-policy-value⑤">value</a> is "<code>require-corp</code>" and <var>child policy</var>’s <a data-link-type="dfn" href="#embedder-policy-value" id="ref-for-embedder-policy-value⑥">value</a> is "<code>unsafe-none</code>":</p>
        <ol>
         <li data-md>
-         <p>If <var>owner policy</var>’s <a data-link-type="dfn" href="#embedder-policy-reporting-endpoint" id="ref-for-embedder-policy-reporting-endpoint④">reporting endpoint</a> is not null, then <a data-link-type="abstract-op" href="#abstract-opdef-queue-coep-worker-violation" id="ref-for-abstract-opdef-queue-coep-worker-violation①">queue a Cross-Origin Embedder Policy vioalation on worker initialization</a> with <var>request</var>, <var>owner policy</var>’s <a data-link-type="dfn" href="#embedder-policy-reporting-endpoint" id="ref-for-embedder-policy-reporting-endpoint⑤">reporting endpoint</a> and <var>owner</var>.</p>
+         <p>If <var>owner policy</var>’s <a data-link-type="dfn" href="#embedder-policy-reporting-endpoint" id="ref-for-embedder-policy-reporting-endpoint⑤">reporting endpoint</a> is not null, then <a data-link-type="abstract-op" href="#abstract-opdef-queue-coep-worker-violation" id="ref-for-abstract-opdef-queue-coep-worker-violation①">queue a Cross-Origin Embedder Policy vioalation on worker initialization</a> with <var>request</var>, <var>owner policy</var>’s <a data-link-type="dfn" href="#embedder-policy-reporting-endpoint" id="ref-for-embedder-policy-reporting-endpoint⑥">reporting endpoint</a> and <var>owner</var>.</p>
         <li data-md>
          <p>Return "<code>blocked</code>".</p>
        </ol>
@@ -2200,12 +2200,12 @@ embedder’s policy</dfn> given a <a data-link-type="dfn" href="https://fetch.sp
       <li data-md>
        <p>Let <var>parent policy</var> be <var>target</var>’s <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/browsers.html#bc-container-document" id="ref-for-bc-container-document">container document</a>'s <a data-link-type="dfn" href="#document-embedder-policy" id="ref-for-document-embedder-policy⑦">embedder policy</a>.</p>
       <li data-md>
-       <p>If <var>parent policy</var>’s <a data-link-type="dfn" href="#embedder-policy-report-only-value" id="ref-for-embedder-policy-report-only-value②">report only value</a> is "<code>require-corp</code>" and <var>parent policy</var>’s <a data-link-type="dfn" href="#embedder-policy-report-only-reporting-endpoint" id="ref-for-embedder-policy-report-only-reporting-endpoint⑥">report only reporting endpoint</a> is not null and <var>response policy</var>’s <a data-link-type="dfn" href="#embedder-policy-value" id="ref-for-embedder-policy-value④">value</a> is "<code>unsafe-none</code>", then <a data-link-type="abstract-op" href="#abstract-opdef-queue-coep-navigation-violation" id="ref-for-abstract-opdef-queue-coep-navigation-violation">queue a Cross-Origin Embedder Policy vioalation on navigation</a> with <var>request</var>, <var>parent policy</var>’s <a data-link-type="dfn" href="#embedder-policy-report-only-reporting-endpoint" id="ref-for-embedder-policy-report-only-reporting-endpoint⑦">report only reporting endpoint</a> and <var>target</var>’s <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/browsers.html#bc-container-document" id="ref-for-bc-container-document①">container document</a>.</p>
+       <p>If <var>parent policy</var>’s <a data-link-type="dfn" href="#embedder-policy-report-only-value" id="ref-for-embedder-policy-report-only-value③">report only value</a> is "<code>require-corp</code>" and <var>parent policy</var>’s <a data-link-type="dfn" href="#embedder-policy-report-only-reporting-endpoint" id="ref-for-embedder-policy-report-only-reporting-endpoint⑦">report only reporting endpoint</a> is not null and <var>response policy</var>’s <a data-link-type="dfn" href="#embedder-policy-value" id="ref-for-embedder-policy-value⑦">value</a> is "<code>unsafe-none</code>", then <a data-link-type="abstract-op" href="#abstract-opdef-queue-coep-navigation-violation" id="ref-for-abstract-opdef-queue-coep-navigation-violation">queue a Cross-Origin Embedder Policy vioalation on navigation</a> with <var>request</var>, <var>parent policy</var>’s <a data-link-type="dfn" href="#embedder-policy-report-only-reporting-endpoint" id="ref-for-embedder-policy-report-only-reporting-endpoint⑧">report only reporting endpoint</a> and <var>target</var>’s <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/browsers.html#bc-container-document" id="ref-for-bc-container-document①">container document</a>.</p>
       <li data-md>
-       <p>If <var>parent policy</var>’s <a data-link-type="dfn" href="#embedder-policy-value" id="ref-for-embedder-policy-value⑤">value</a> is "<code>require-corp</code>" and <var>child policy</var>’s <a data-link-type="dfn" href="#embedder-policy-value" id="ref-for-embedder-policy-value⑥">value</a> is "<code>unsafe-none</code>":</p>
+       <p>If <var>parent policy</var>’s <a data-link-type="dfn" href="#embedder-policy-value" id="ref-for-embedder-policy-value⑧">value</a> is "<code>require-corp</code>" and <var>child policy</var>’s <a data-link-type="dfn" href="#embedder-policy-value" id="ref-for-embedder-policy-value⑨">value</a> is "<code>unsafe-none</code>":</p>
        <ol>
         <li data-md>
-         <p>If <var>parent policy</var>’s <a data-link-type="dfn" href="#embedder-policy-reporting-endpoint" id="ref-for-embedder-policy-reporting-endpoint⑥">reporting endpoint</a> is not null, then <a data-link-type="abstract-op" href="#abstract-opdef-queue-coep-navigation-violation" id="ref-for-abstract-opdef-queue-coep-navigation-violation①">queue a Cross-Origin Embedder Policy vioalation on navigation</a> with <var>request</var>, <var>parent policy</var>’s <a data-link-type="dfn" href="#embedder-policy-reporting-endpoint" id="ref-for-embedder-policy-reporting-endpoint⑦">reporting endpoint</a> and <var>target</var>’s <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/browsers.html#bc-container-document" id="ref-for-bc-container-document②">container document</a>.</p>
+         <p>If <var>parent policy</var>’s <a data-link-type="dfn" href="#embedder-policy-reporting-endpoint" id="ref-for-embedder-policy-reporting-endpoint⑦">reporting endpoint</a> is not null, then <a data-link-type="abstract-op" href="#abstract-opdef-queue-coep-navigation-violation" id="ref-for-abstract-opdef-queue-coep-navigation-violation①">queue a Cross-Origin Embedder Policy vioalation on navigation</a> with <var>request</var>, <var>parent policy</var>’s <a data-link-type="dfn" href="#embedder-policy-reporting-endpoint" id="ref-for-embedder-policy-reporting-endpoint⑧">reporting endpoint</a> and <var>target</var>’s <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/browsers.html#bc-container-document" id="ref-for-bc-container-document②">container document</a>.</p>
         <li data-md>
          <p>Return "<code>Blocked</code>".</p>
        </ol>
@@ -2287,8 +2287,8 @@ error-handling behavior.</p>
      <li data-md>
       <p>If <var>request</var>’s <a data-link-type="dfn" href="https://fetch.spec.whatwg.org/#concept-request-reserved-client" id="ref-for-concept-request-reserved-client①">reserved client</a> is not <code>null</code>, then set <var>embedder policy</var> to a new <a data-link-type="dfn" href="#embedder-policy" id="ref-for-embedder-policy①⓪">embedder policy</a>.</p>
      <li data-md>
-      <p>If <var>embedder policy</var>’s <a data-link-type="dfn" href="#embedder-policy-report-only-reporting-endpoint" id="ref-for-embedder-policy-report-only-reporting-endpoint⑧">report only reporting endpoint</a> is not <code>null</code> and the
-result of running [$cross-origin resource policy internal check] with <a data-link-type="dfn" href="#embedder-policy-report-only-value" id="ref-for-embedder-policy-report-only-value③">report only value</a>, <var>request</var> and <var>response</var> is <code>blocked</code>, then run these
+      <p>If <var>embedder policy</var>’s <a data-link-type="dfn" href="#embedder-policy-report-only-reporting-endpoint" id="ref-for-embedder-policy-report-only-reporting-endpoint⑨">report only reporting endpoint</a> is not <code>null</code> and the
+result of running [$cross-origin resource policy internal check] with <a data-link-type="dfn" href="#embedder-policy-report-only-value" id="ref-for-embedder-policy-report-only-value④">report only value</a>, <var>request</var> and <var>response</var> is <code>blocked</code>, then run these
 steps:</p>
       <ol>
        <li data-md>
@@ -2307,12 +2307,12 @@ the <var>exclude fragment flag</var> set.</p>
           <p>key: "<code>blocked-url</code>", value: <var>serialized blocked url</var>.</p>
         </ul>
        <li data-md>
-        <p><a href="https://w3c.github.io/reporting/#queue-report">Queue</a> <var>body</var> as "<code>coep</code>" for <var>embedder policy</var>’s <a data-link-type="dfn" href="#embedder-policy-report-only-reporting-endpoint" id="ref-for-embedder-policy-report-only-reporting-endpoint⑨">report only reporting endpoint</a> on <var>request</var>’s <a data-link-type="dfn" href="https://fetch.spec.whatwg.org/#concept-request-client" id="ref-for-concept-request-client②">client</a>.</p>
+        <p><a href="https://w3c.github.io/reporting/#queue-report">Queue</a> <var>body</var> as "<code>coep</code>" for <var>embedder policy</var>’s <a data-link-type="dfn" href="#embedder-policy-report-only-reporting-endpoint" id="ref-for-embedder-policy-report-only-reporting-endpoint①⓪">report only reporting endpoint</a> on <var>request</var>’s <a data-link-type="dfn" href="https://fetch.spec.whatwg.org/#concept-request-client" id="ref-for-concept-request-client②">client</a>.</p>
       </ol>
      <li data-md>
-      <p>Let <var>result</var> be the result of running <a data-link-type="abstract-op" href="#abstract-opdef-cross-origin-resource-policy-internal-check" id="ref-for-abstract-opdef-cross-origin-resource-policy-internal-check">cross-origin resource policy internal check</a> with <a data-link-type="dfn" href="#embedder-policy-value" id="ref-for-embedder-policy-value⑦">value</a>, <var>request</var> and <var>response</var>.</p>
+      <p>Let <var>result</var> be the result of running <a data-link-type="abstract-op" href="#abstract-opdef-cross-origin-resource-policy-internal-check" id="ref-for-abstract-opdef-cross-origin-resource-policy-internal-check">cross-origin resource policy internal check</a> with <a data-link-type="dfn" href="#embedder-policy-value" id="ref-for-embedder-policy-value①⓪">value</a>, <var>request</var> and <var>response</var>.</p>
      <li data-md>
-      <p>If <var>embedder policy</var>’s <a data-link-type="dfn" href="#embedder-policy-reporting-endpoint" id="ref-for-embedder-policy-reporting-endpoint⑧">reporting endpoint</a> is not <code>null</code> and <var>result</var> is <code>blocked</code>, then run these steps:</p>
+      <p>If <var>embedder policy</var>’s <a data-link-type="dfn" href="#embedder-policy-reporting-endpoint" id="ref-for-embedder-policy-reporting-endpoint⑨">reporting endpoint</a> is not <code>null</code> and <var>result</var> is <code>blocked</code>, then run these steps:</p>
       <ol>
        <li data-md>
         <p>Let <var>blocked url</var> be <var>request</var>’s <a data-link-type="dfn" href="https://fetch.spec.whatwg.org/#concept-request-url" id="ref-for-concept-request-url③">URL</a>.</p>
@@ -2330,7 +2330,7 @@ the <var>exclude fragment flag</var> set.</p>
           <p>key: "<code>blocked-url</code>", value: <var>serialized blocked url</var>.</p>
         </ul>
        <li data-md>
-        <p><a href="https://w3c.github.io/reporting/#queue-report">Queue</a> <var>body</var> as "<code>coep</code>" for <var>embedder policy</var>’s <a data-link-type="dfn" href="#embedder-policy-reporting-endpoint" id="ref-for-embedder-policy-reporting-endpoint⑨">reporting endpoint</a> on <var>request</var>’s <a data-link-type="dfn" href="https://fetch.spec.whatwg.org/#concept-request-client" id="ref-for-concept-request-client③">client</a>.</p>
+        <p><a href="https://w3c.github.io/reporting/#queue-report">Queue</a> <var>body</var> as "<code>coep</code>" for <var>embedder policy</var>’s <a data-link-type="dfn" href="#embedder-policy-reporting-endpoint" id="ref-for-embedder-policy-reporting-endpoint①⓪">reporting endpoint</a> on <var>request</var>’s <a data-link-type="dfn" href="https://fetch.spec.whatwg.org/#concept-request-client" id="ref-for-concept-request-client③">client</a>.</p>
       </ol>
      <li data-md>
       <p>Return <var>result</var>.</p>
@@ -2867,80 +2867,80 @@ is significantly simpler than imposing new constraints in the future.</p>
    <li>
     <a data-link-type="biblio">[DOM]</a> defines the following terms:
     <ul>
-     <li><span class="dfn-paneled" id="term-for-document" style="color:initial">Document</span>
+     <li><span class="dfn-paneled" id="term-for-document">Document</span>
     </ul>
    <li>
     <a data-link-type="biblio">[ECMASCRIPT]</a> defines the following terms:
     <ul>
-     <li><span class="dfn-paneled" id="term-for-sec-sharedarraybuffer-objects" style="color:initial">SharedArrayBuffer</span>
+     <li><span class="dfn-paneled" id="term-for-sec-sharedarraybuffer-objects">SharedArrayBuffer</span>
     </ul>
    <li>
     <a data-link-type="biblio">[Fetch]</a> defines the following terms:
     <ul>
-     <li><span class="dfn-paneled" id="term-for-concept-request-client" style="color:initial">client</span>
-     <li><span class="dfn-paneled" id="term-for-concept-cors-check" style="color:initial">cors check</span>
-     <li><span class="dfn-paneled" id="term-for-http-cross-origin-resource-policy" style="color:initial">cross-origin-resource-policy</span>
-     <li><span class="dfn-paneled" id="term-for-concept-request-current-url" style="color:initial">current url</span>
-     <li><span class="dfn-paneled" id="term-for-concept-request-destination" style="color:initial">destination</span>
-     <li><span class="dfn-paneled" id="term-for-concept-header-list-get" style="color:initial">get</span>
-     <li><span class="dfn-paneled" id="term-for-concept-response-header-list" style="color:initial">header list</span>
-     <li><span class="dfn-paneled" id="term-for-local-scheme" style="color:initial">local scheme</span>
-     <li><span class="dfn-paneled" id="term-for-concept-request-mode" style="color:initial">mode</span>
-     <li><span class="dfn-paneled" id="term-for-navigation-request" style="color:initial">navigation request</span>
-     <li><span class="dfn-paneled" id="term-for-concept-network-error" style="color:initial">network error</span>
-     <li><span class="dfn-paneled" id="term-for-concept-request-origin" style="color:initial">origin</span>
-     <li><span class="dfn-paneled" id="term-for-concept-request" style="color:initial">request</span>
-     <li><span class="dfn-paneled" id="term-for-concept-request-reserved-client" style="color:initial">reserved client</span>
-     <li><span class="dfn-paneled" id="term-for-concept-response" style="color:initial">response</span>
-     <li><span class="dfn-paneled" id="term-for-concept-response-url" style="color:initial">url <small>(for response)</small></span>
+     <li><span class="dfn-paneled" id="term-for-concept-request-client">client</span>
+     <li><span class="dfn-paneled" id="term-for-concept-cors-check">cors check</span>
+     <li><span class="dfn-paneled" id="term-for-http-cross-origin-resource-policy">cross-origin-resource-policy</span>
+     <li><span class="dfn-paneled" id="term-for-concept-request-current-url">current url</span>
+     <li><span class="dfn-paneled" id="term-for-concept-request-destination">destination</span>
+     <li><span class="dfn-paneled" id="term-for-concept-header-list-get">get</span>
+     <li><span class="dfn-paneled" id="term-for-concept-response-header-list">header list</span>
+     <li><span class="dfn-paneled" id="term-for-local-scheme">local scheme</span>
+     <li><span class="dfn-paneled" id="term-for-concept-request-mode">mode</span>
+     <li><span class="dfn-paneled" id="term-for-navigation-request">navigation request</span>
+     <li><span class="dfn-paneled" id="term-for-concept-network-error">network error</span>
+     <li><span class="dfn-paneled" id="term-for-concept-request-origin">origin</span>
+     <li><span class="dfn-paneled" id="term-for-concept-request">request</span>
+     <li><span class="dfn-paneled" id="term-for-concept-request-reserved-client">reserved client</span>
+     <li><span class="dfn-paneled" id="term-for-concept-response">response</span>
+     <li><span class="dfn-paneled" id="term-for-concept-response-url">url <small>(for response)</small></span>
     </ul>
    <li>
     <a data-link-type="biblio">[HTML]</a> defines the following terms:
     <ul>
-     <li><span class="dfn-paneled" id="term-for-sharedworkerglobalscope" style="color:initial">SharedWorkerGlobalScope</span>
-     <li><span class="dfn-paneled" id="term-for-window" style="color:initial">Window</span>
-     <li><span class="dfn-paneled" id="term-for-workerglobalscope" style="color:initial">WorkerGlobalScope</span>
-     <li><span class="dfn-paneled" id="term-for-active-document" style="color:initial">active document</span>
-     <li><span class="dfn-paneled" id="term-for-concept-document-window" style="color:initial">associated document</span>
-     <li><span class="dfn-paneled" id="term-for-browsing-context" style="color:initial">browsing context</span>
-     <li><span class="dfn-paneled" id="term-for-child-browsing-context" style="color:initial">child browsing context</span>
-     <li><span class="dfn-paneled" id="term-for-bc-container-document" style="color:initial">container document</span>
-     <li><span class="dfn-paneled" id="term-for-environment-settings-object" style="color:initial">environment settings object</span>
-     <li><span class="dfn-paneled" id="term-for-global-object" style="color:initial">global object</span>
-     <li><span class="dfn-paneled" id="term-for-concept-origin-host" style="color:initial">host</span>
-     <li><span class="dfn-paneled" id="term-for-the-iframe-element" style="color:initial">iframe</span>
-     <li><span class="dfn-paneled" id="term-for-nested-browsing-context" style="color:initial">nested browsing context</span>
-     <li><span class="dfn-paneled" id="term-for-concept-WorkerGlobalScope-owner-set" style="color:initial">owner set</span>
-     <li><span class="dfn-paneled" id="term-for-parent-browsing-context" style="color:initial">parent browsing context</span>
-     <li><span class="dfn-paneled" id="term-for-same-origin" style="color:initial">same origin</span>
-     <li><span class="dfn-paneled" id="term-for-same-site" style="color:initial">same site</span>
-     <li><span class="dfn-paneled" id="term-for-concept-origin-scheme" style="color:initial">scheme</span>
+     <li><span class="dfn-paneled" id="term-for-sharedworkerglobalscope">SharedWorkerGlobalScope</span>
+     <li><span class="dfn-paneled" id="term-for-window">Window</span>
+     <li><span class="dfn-paneled" id="term-for-workerglobalscope">WorkerGlobalScope</span>
+     <li><span class="dfn-paneled" id="term-for-active-document">active document</span>
+     <li><span class="dfn-paneled" id="term-for-concept-document-window">associated document</span>
+     <li><span class="dfn-paneled" id="term-for-browsing-context">browsing context</span>
+     <li><span class="dfn-paneled" id="term-for-child-browsing-context">child browsing context</span>
+     <li><span class="dfn-paneled" id="term-for-bc-container-document">container document</span>
+     <li><span class="dfn-paneled" id="term-for-environment-settings-object">environment settings object</span>
+     <li><span class="dfn-paneled" id="term-for-global-object">global object</span>
+     <li><span class="dfn-paneled" id="term-for-concept-origin-host">host</span>
+     <li><span class="dfn-paneled" id="term-for-the-iframe-element">iframe</span>
+     <li><span class="dfn-paneled" id="term-for-nested-browsing-context">nested browsing context</span>
+     <li><span class="dfn-paneled" id="term-for-concept-WorkerGlobalScope-owner-set">owner set</span>
+     <li><span class="dfn-paneled" id="term-for-parent-browsing-context">parent browsing context</span>
+     <li><span class="dfn-paneled" id="term-for-same-origin">same origin</span>
+     <li><span class="dfn-paneled" id="term-for-same-site">same site</span>
+     <li><span class="dfn-paneled" id="term-for-concept-origin-scheme">scheme</span>
     </ul>
    <li>
     <a data-link-type="biblio">[I-D.ietf-httpbis-header-structure]</a> defines the following terms:
     <ul>
-     <li><span class="dfn-paneled" id="term-for-section-3.1" style="color:initial">dictionary</span>
-     <li><span class="dfn-paneled" id="term-for-section-3.9" style="color:initial">sh-token</span>
-     <li><span class="dfn-paneled" id="term-for-" style="color:initial">structured header</span>
-     <li><span class="dfn-paneled" id="term-for-section-3.9①" style="color:initial">token</span>
+     <li><span class="dfn-paneled" id="term-for-section-3.1">dictionary</span>
+     <li><span class="dfn-paneled" id="term-for-section-3.9">sh-token</span>
+     <li><span class="dfn-paneled" id="term-for-">structured header</span>
+     <li><span class="dfn-paneled" id="term-for-section-3.9①">token</span>
     </ul>
    <li>
     <a data-link-type="biblio">[INFRA]</a> defines the following terms:
     <ul>
-     <li><span class="dfn-paneled" id="term-for-map-exists" style="color:initial">exist</span>
+     <li><span class="dfn-paneled" id="term-for-map-exists">exist</span>
     </ul>
    <li>
     <a data-link-type="biblio">[service-workers-1]</a> defines the following terms:
     <ul>
-     <li><span class="dfn-paneled" id="term-for-serviceworkerglobalscope" style="color:initial">ServiceWorkerGlobalScope</span>
+     <li><span class="dfn-paneled" id="term-for-serviceworkerglobalscope">ServiceWorkerGlobalScope</span>
     </ul>
    <li>
     <a data-link-type="biblio">[URL]</a> defines the following terms:
     <ul>
-     <li><span class="dfn-paneled" id="term-for-concept-url-origin" style="color:initial">origin</span>
-     <li><span class="dfn-paneled" id="term-for-concept-url-password" style="color:initial">password</span>
-     <li><span class="dfn-paneled" id="term-for-concept-url-scheme" style="color:initial">scheme</span>
-     <li><span class="dfn-paneled" id="term-for-concept-url-username" style="color:initial">username</span>
+     <li><span class="dfn-paneled" id="term-for-concept-url-origin">origin</span>
+     <li><span class="dfn-paneled" id="term-for-concept-url-password">password</span>
+     <li><span class="dfn-paneled" id="term-for-concept-url-scheme">scheme</span>
+     <li><span class="dfn-paneled" id="term-for-concept-url-username">username</span>
     </ul>
   </ul>
   <h2 class="no-num no-ref heading settled" id="references"><span class="content">References</span><a class="self-link" href="#references"></a></h2>
@@ -3010,38 +3010,40 @@ error-handling behavior.<a href="#issue-4328816a"> ↵ </a></div>
    <b><a href="#embedder-policy-value">#embedder-policy-value</a></b><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-embedder-policy-value">2.3. Parsing</a>
-    <li><a href="#ref-for-embedder-policy-value①">3.1.2. Checking a global object’s Embedder policy</a> <a href="#ref-for-embedder-policy-value②">(2)</a> <a href="#ref-for-embedder-policy-value③">(3)</a>
-    <li><a href="#ref-for-embedder-policy-value④">3.1.3. Process a navigation response</a> <a href="#ref-for-embedder-policy-value⑤">(2)</a> <a href="#ref-for-embedder-policy-value⑥">(3)</a>
-    <li><a href="#ref-for-embedder-policy-value⑦">3.2.1. Cross-Origin Resource Policy Checks</a>
+    <li><a href="#ref-for-embedder-policy-value①">3.1.1. Initializing a global object’s Embedder policy</a> <a href="#ref-for-embedder-policy-value②">(2)</a> <a href="#ref-for-embedder-policy-value③">(3)</a>
+    <li><a href="#ref-for-embedder-policy-value④">3.1.2. Checking a global object’s Embedder policy</a> <a href="#ref-for-embedder-policy-value⑤">(2)</a> <a href="#ref-for-embedder-policy-value⑥">(3)</a>
+    <li><a href="#ref-for-embedder-policy-value⑦">3.1.3. Process a navigation response</a> <a href="#ref-for-embedder-policy-value⑧">(2)</a> <a href="#ref-for-embedder-policy-value⑨">(3)</a>
+    <li><a href="#ref-for-embedder-policy-value①⓪">3.2.1. Cross-Origin Resource Policy Checks</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="embedder-policy-reporting-endpoint">
    <b><a href="#embedder-policy-reporting-endpoint">#embedder-policy-reporting-endpoint</a></b><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-embedder-policy-reporting-endpoint">2.3. Parsing</a>
-    <li><a href="#ref-for-embedder-policy-reporting-endpoint①">3.1.1. Initializing a global object’s Embedder policy</a> <a href="#ref-for-embedder-policy-reporting-endpoint②">(2)</a> <a href="#ref-for-embedder-policy-reporting-endpoint③">(3)</a>
-    <li><a href="#ref-for-embedder-policy-reporting-endpoint④">3.1.2. Checking a global object’s Embedder policy</a> <a href="#ref-for-embedder-policy-reporting-endpoint⑤">(2)</a>
-    <li><a href="#ref-for-embedder-policy-reporting-endpoint⑥">3.1.3. Process a navigation response</a> <a href="#ref-for-embedder-policy-reporting-endpoint⑦">(2)</a>
-    <li><a href="#ref-for-embedder-policy-reporting-endpoint⑧">3.2.1. Cross-Origin Resource Policy Checks</a> <a href="#ref-for-embedder-policy-reporting-endpoint⑨">(2)</a>
+    <li><a href="#ref-for-embedder-policy-reporting-endpoint①">3.1.1. Initializing a global object’s Embedder policy</a> <a href="#ref-for-embedder-policy-reporting-endpoint②">(2)</a> <a href="#ref-for-embedder-policy-reporting-endpoint③">(3)</a> <a href="#ref-for-embedder-policy-reporting-endpoint④">(4)</a>
+    <li><a href="#ref-for-embedder-policy-reporting-endpoint⑤">3.1.2. Checking a global object’s Embedder policy</a> <a href="#ref-for-embedder-policy-reporting-endpoint⑥">(2)</a>
+    <li><a href="#ref-for-embedder-policy-reporting-endpoint⑦">3.1.3. Process a navigation response</a> <a href="#ref-for-embedder-policy-reporting-endpoint⑧">(2)</a>
+    <li><a href="#ref-for-embedder-policy-reporting-endpoint⑨">3.2.1. Cross-Origin Resource Policy Checks</a> <a href="#ref-for-embedder-policy-reporting-endpoint①⓪">(2)</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="embedder-policy-report-only-value">
    <b><a href="#embedder-policy-report-only-value">#embedder-policy-report-only-value</a></b><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-embedder-policy-report-only-value">2.3. Parsing</a>
-    <li><a href="#ref-for-embedder-policy-report-only-value①">3.1.2. Checking a global object’s Embedder policy</a>
-    <li><a href="#ref-for-embedder-policy-report-only-value②">3.1.3. Process a navigation response</a>
-    <li><a href="#ref-for-embedder-policy-report-only-value③">3.2.1. Cross-Origin Resource Policy Checks</a>
+    <li><a href="#ref-for-embedder-policy-report-only-value①">3.1.1. Initializing a global object’s Embedder policy</a>
+    <li><a href="#ref-for-embedder-policy-report-only-value②">3.1.2. Checking a global object’s Embedder policy</a>
+    <li><a href="#ref-for-embedder-policy-report-only-value③">3.1.3. Process a navigation response</a>
+    <li><a href="#ref-for-embedder-policy-report-only-value④">3.2.1. Cross-Origin Resource Policy Checks</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="embedder-policy-report-only-reporting-endpoint">
    <b><a href="#embedder-policy-report-only-reporting-endpoint">#embedder-policy-report-only-reporting-endpoint</a></b><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-embedder-policy-report-only-reporting-endpoint">2.3. Parsing</a>
-    <li><a href="#ref-for-embedder-policy-report-only-reporting-endpoint①">3.1.1. Initializing a global object’s Embedder policy</a> <a href="#ref-for-embedder-policy-report-only-reporting-endpoint②">(2)</a> <a href="#ref-for-embedder-policy-report-only-reporting-endpoint③">(3)</a>
-    <li><a href="#ref-for-embedder-policy-report-only-reporting-endpoint④">3.1.2. Checking a global object’s Embedder policy</a> <a href="#ref-for-embedder-policy-report-only-reporting-endpoint⑤">(2)</a>
-    <li><a href="#ref-for-embedder-policy-report-only-reporting-endpoint⑥">3.1.3. Process a navigation response</a> <a href="#ref-for-embedder-policy-report-only-reporting-endpoint⑦">(2)</a>
-    <li><a href="#ref-for-embedder-policy-report-only-reporting-endpoint⑧">3.2.1. Cross-Origin Resource Policy Checks</a> <a href="#ref-for-embedder-policy-report-only-reporting-endpoint⑨">(2)</a>
+    <li><a href="#ref-for-embedder-policy-report-only-reporting-endpoint①">3.1.1. Initializing a global object’s Embedder policy</a> <a href="#ref-for-embedder-policy-report-only-reporting-endpoint②">(2)</a> <a href="#ref-for-embedder-policy-report-only-reporting-endpoint③">(3)</a> <a href="#ref-for-embedder-policy-report-only-reporting-endpoint④">(4)</a>
+    <li><a href="#ref-for-embedder-policy-report-only-reporting-endpoint⑤">3.1.2. Checking a global object’s Embedder policy</a> <a href="#ref-for-embedder-policy-report-only-reporting-endpoint⑥">(2)</a>
+    <li><a href="#ref-for-embedder-policy-report-only-reporting-endpoint⑦">3.1.3. Process a navigation response</a> <a href="#ref-for-embedder-policy-report-only-reporting-endpoint⑧">(2)</a>
+    <li><a href="#ref-for-embedder-policy-report-only-reporting-endpoint⑨">3.2.1. Cross-Origin Resource Policy Checks</a> <a href="#ref-for-embedder-policy-report-only-reporting-endpoint①⓪">(2)</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="document-embedder-policy">
